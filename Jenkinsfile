@@ -29,7 +29,7 @@ pipeline {
                     }
                     // Last Git commit
                     LAST_GIT_COMMIT = sh (
-                            script: 'git --no-pager show -s --format=\'%blue %h %Creset %s %Cgreen %an %Creset (%ae)\'',
+                            script: 'git --no-pager show -s --format=\'%Cblue %h %Creset %s %Cgreen %an %Creset (%ae)\'',
                             returnStdout: true
                     ).trim()
                     echo "Last Git commit: ${LAST_GIT_COMMIT}"
