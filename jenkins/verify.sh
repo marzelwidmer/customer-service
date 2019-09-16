@@ -23,18 +23,25 @@ VNUM3=${VERSION_BITS[2]}
 MAJOR_COUNT_OF_COMMIT_MSG=`git log $GIT_REV_LIST..$GIT_REV_LAST --pretty=%B | egrep -c '^(breaking:|major:|BREAKING CHANGE:)'`
 MINOR_COUNT_OF_COMMIT_MSG=`git log $GIT_REV_LIST..$GIT_REV_LAST --pretty=%B | egrep -c '^(feature:|minor:|feat:)'`
 PATCH_COUNT_OF_COMMIT_MSG=`git log $GIT_REV_LIST..$GIT_REV_LAST --pretty=%B | egrep -c '^(fix:|patch:|docs:|style:|refactor:|perf:|test:|chore:)'`
+
+# MAJOR 0.0.1
 if [ $PATCH_COUNT_OF_COMMIT_MSG -gt 0 ]; then
     VNUM3=$((VNUM3+1))
 fi
+
+# MAJOR 0.1.0
 if [ $MINOR_COUNT_OF_COMMIT_MSG -gt 0 ]; then
     VNUM2=$((VNUM2+1))
     VNUM3=0
 fi
+
+# MAJOR 1.0.0
 if [ $MAJOR_COUNT_OF_COMMIT_MSG -gt 0 ]; then
     VNUM1=$((VNUM1+1))
     VNUM2=0
     VNUM3=0
 fi
+
 # count all commits for a branch
 GIT_COMMIT_COUNT=`git rev-list --count HEAD`
 #create new tag

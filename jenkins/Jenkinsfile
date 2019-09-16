@@ -10,7 +10,12 @@ pipeline {
         GIT_COMMIT_SHORT = env.GIT_COMMIT.take(7)
         REPOSITORY = "github.com/marzelwidmer/customer-service.git"
         BRANCHES = "[[name: '*/master']]"
+//        GIT_TAG_MESSAGE = sh(
+//                script: "printf \$(git log --pretty='%s (%an)' -1)",
+//                returnStdout: true
+//        )
         GIT_TAG_MESSAGE = 'ci-release-bot'
+
         GIT_TAG_USER_EMAIL =  "jenkins@c3smonkey.ch"
         GIT_TAG_USER_NAME = "Jenkins"
         DEV_ENVIRONMENT = 'development'
@@ -43,13 +48,6 @@ pipeline {
                             returnStdout: true
                     ).trim()
                     echo "NEXT_VERSION : ${NEXT_VERSION}"
-                    sh '''
-                       echo test 1
-                       git log --no-merges --pretty=format:'%s [view commit](http://github.com/marzelwidmer/customer-service/commit/%H)' | egrep  '^(fix:|patch:|docs:|style:|refactor:|perf:|test:|chore:|feature:|minor:|feat:|breaking:|major:|BREAKING CHANGE:)\'
-                       echo test 2
-                       git log --no-merges  $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s" | egrep  '^(fix:|patch:|docs:|style:|refactor:|perf:|test:|chore:|feature:|minor:|feat:|breaking:|major:|BREAKING CHANGE:)\' > myfile.txt
-                       ls -lisa 
-                       '''
                 }
             }
         }
@@ -78,6 +76,7 @@ pipeline {
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
+                    archiveArtifacts artifacts: 'target/**/*.jar', fingerprint: true
                 }
             }
         }
@@ -108,6 +107,9 @@ pipeline {
                             git tag -a -m '${GIT_TAG_MESSAGE}' ${NEXT_VERSION}
                             git push --follow-tags
                         fi
+
+                        #git log --pretty=format:"%h %s (%cn) %cD" | grep -E '(breaking:|major:|BREAKING CHANGE:|feature:|minor:|feat:|fix:|patch:|docs:|style:|refactor:|perf:|test:|chore:)'
+                        #git tag -n
                     """)
                 }
             }
