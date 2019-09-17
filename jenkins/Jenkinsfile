@@ -10,12 +10,11 @@ pipeline {
         GIT_COMMIT_SHORT = env.GIT_COMMIT.take(7)
         REPOSITORY = "github.com/marzelwidmer/customer-service.git"
         BRANCHES = "[[name: '*/master']]"
-//        GIT_TAG_MESSAGE = sh(
-//                script: "printf \$(git log --pretty='%s (%an)' -1)",
-//                returnStdout: true
-//        )
+        GIT_LAST_COMMIT_MESSAGE = sh(
+                script: "printf \$(git log --pretty='%s (%an)' -1)",
+                returnStdout: true
+        )
         GIT_TAG_MESSAGE = 'ci-release-bot'
-
         GIT_TAG_USER_EMAIL =  "jenkins@c3smonkey.ch"
         GIT_TAG_USER_NAME = "Jenkins"
         DEV_ENVIRONMENT = 'development'
@@ -72,6 +71,7 @@ pipeline {
             steps {
                 echo "run tests"
                 sh './mvnw test'
+                sh 'ls -lisa /target'
             }
             post {
                 always {
