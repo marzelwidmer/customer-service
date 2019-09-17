@@ -9,7 +9,7 @@ pipeline {
     environment {
         GIT_COMMIT_SHORT = env.GIT_COMMIT.take(7)
         REPOSITORY = "github.com/marzelwidmer/customer-service.git"
-        BRANCHES = "[[name: '*/master'],[name: 'feature/**']]"
+        BRANCHES = "[[name: '*/master']]"
         GIT_LAST_COMMIT_MESSAGE = sh(
                 script: "printf \$(git log --pretty='%s (%an)' -1)",
                 returnStdout: true
@@ -83,6 +83,9 @@ pipeline {
         }
         // Approval to tag the source
         stage('approve to tagging') {
+            when{
+                branch 'masterX'
+            }
             steps {
                 script{
                     echo "next tag will be: ${NEXT_VERSION}"
@@ -95,7 +98,7 @@ pipeline {
         // Create Tag
         stage('git create tag') {
             when{
-                branch 'feature'
+                branch 'masterX'
             }
             steps {
                 script {
@@ -224,6 +227,9 @@ pipeline {
         }
         // Approval
         stage('approve to production') {
+            when{
+                branch 'masterX'
+            }
             steps {
                 timeout(time: 2, unit: 'DAYS') {
                     input 'Approve to production'
@@ -232,6 +238,9 @@ pipeline {
         }
         // Deploy to production
         stage('tag image for production') {
+            when{
+                branch 'masterX'
+            }
             steps {
                 script {
                     openshift.withCluster() {
@@ -248,6 +257,9 @@ pipeline {
         }
         // Deploy to production
         stage('deploy to production') {
+            when{
+                branch 'masterX'
+            }
             steps {
                 script {
                     openshift.withCluster() {
@@ -267,6 +279,9 @@ pipeline {
         }
         // Scale POD in production
         stage('scale pod in production to 2 replicas') {
+            when{
+                branch 'masterX'
+            }
             steps {
                 script {
                     openshift.withCluster() {
@@ -280,6 +295,9 @@ pipeline {
         }
         // Verify deployment
         stage('verify deployment in production') {
+            when{
+                branch 'masterX'
+            }
             steps {
                 script {
                     openshift.withCluster() {
