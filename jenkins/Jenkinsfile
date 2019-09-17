@@ -9,7 +9,7 @@ pipeline {
     environment {
         GIT_COMMIT_SHORT = env.GIT_COMMIT.take(7)
         REPOSITORY = "github.com/marzelwidmer/customer-service.git"
-        BRANCHES = "[[name: '*/master'],[name: 'feat/**']]"
+        BRANCHES = "[[name: '*/master'],[name: 'feature/**']]"
         GIT_LAST_COMMIT_MESSAGE = sh(
                 script: "printf \$(git log --pretty='%s (%an)' -1)",
                 returnStdout: true
@@ -33,6 +33,7 @@ pipeline {
                             script: 'git --no-pager show -s --format=\'%Cblue %h %Creset %s %Cgreen %an %Creset (%ae)\'',
                             returnStdout: true
                     ).trim()
+                    echo "Branch: ${env.GIT_BRANCH}"
                     echo "Last Git commit: ${GIT_LAST_COMMIT_MESSAGE}"
                     echo "Last Git commit: ${LAST_GIT_COMMIT}"
                     echo "Last Git commit short: ${GIT_COMMIT_SHORT}"
@@ -93,6 +94,9 @@ pipeline {
         }
         // Create Tag
         stage('git create tag') {
+            when{
+                branch 'master'
+            }
             steps {
                 script {
                     echo "Create tag with version: ${NEXT_VERSION}"
