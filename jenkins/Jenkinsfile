@@ -71,13 +71,12 @@ pipeline {
             steps {
                 echo "run tests"
                 sh './mvnw test'
-                sh 'ls -lisa /target'
+                sh 'ls -lisa target/'
             }
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
-                    archiveArtifacts artifacts: 'target/**/*.jar', fingerprint: true
-                    changelog 'target/changelog.html'
+                    archiveArtifacts artifacts: 'target/**/changelog.* target/**/*.jar', fingerprint: true, onlyIfSuccessful: true
                 }
             }
         }
