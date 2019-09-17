@@ -54,6 +54,9 @@ pipeline {
         }
         // Build
         stage('build application') {
+            when {
+                branch 'master'
+            }
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'jenkins-ci-user-at-github', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
