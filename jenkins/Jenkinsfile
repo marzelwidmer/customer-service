@@ -95,7 +95,7 @@ pipeline {
         // Create Tag
         stage('git create tag') {
             when{
-                branch 'master'
+                branch 'feature'
             }
             steps {
                 script {
