@@ -11,10 +11,10 @@ VERSION='0.0.0'
 if [[ -n $GIT_REV_LIST ]]; then
     VERSION=`git describe --tags $GIT_REV_LIST`
 fi
-#echo "Latest rev-list: $GIT_REV_LIST"
+echo "Latest rev-list: $GIT_REV_LIST"
 # split into array
 VERSION_BITS=(${VERSION//./ })
-#echo "Latest version tag: $VERSION"
+echo "Latest version tag: $VERSION"
 #get number parts and increase last one by 1
 VNUM1=${VERSION_BITS[0]}
 VNUM2=${VERSION_BITS[1]}
@@ -46,5 +46,5 @@ fi
 GIT_COMMIT_COUNT=`git rev-list --count HEAD`
 #create new tag
 NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
-#echo "Updating $VERSION to $NEW_TAG"
+echo "Updating $VERSION to $NEW_TAG"
 echo $NEW_TAG
