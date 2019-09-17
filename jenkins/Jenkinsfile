@@ -9,7 +9,7 @@ pipeline {
     environment {
         GIT_COMMIT_SHORT = env.GIT_COMMIT.take(7)
         REPOSITORY = "github.com/marzelwidmer/customer-service.git"
-        BRANCHES = "[[name: '*/master']]"
+        BRANCHES = "[[name: '*/master'],[name: 'feature/**']]"
         GIT_LAST_COMMIT_MESSAGE = sh(
                 script: "printf \$(git log --pretty='%s (%an)' -1)",
                 returnStdout: true
@@ -289,6 +289,24 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    post {
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo 'I succeeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
         }
     }
 }
