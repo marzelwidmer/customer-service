@@ -94,6 +94,9 @@ pipeline {
         }
         // Create Tag
         stage('git create tag') {
+            when{ //https://stackoverflow.com/questions/37690920/jenkins-pipeline-conditional-step-stage
+                branch 'master'
+            }
             steps {
                 script {
                     echo "Create tag with version: ${NEXT_VERSION}"
