@@ -84,7 +84,7 @@ pipeline {
         // Approval to tag the source
         stage('approve to tagging') {
             when{
-                branch 'master'
+               branch 'origin/master'
             }
             steps {
                 script{
@@ -98,7 +98,7 @@ pipeline {
         // Create Tag
         stage('git create tag') {
             when{
-                branch 'master'
+               branch 'origin/master'
             }
             steps {
                 script {
@@ -228,7 +228,7 @@ pipeline {
         // Approval
         stage('approve to production') {
             when{
-                branch 'master'
+               branch 'origin/master'
             }
             steps {
                 timeout(time: 2, unit: 'DAYS') {
@@ -239,7 +239,7 @@ pipeline {
         // Deploy to production
         stage('tag image for production') {
             when{
-                branch 'master'
+               branch 'origin/master'
             }
             steps {
                 script {
@@ -258,7 +258,7 @@ pipeline {
         // Deploy to production
         stage('deploy to production') {
             when{
-                branch 'master'
+               branch 'origin/master'
             }
             steps {
                 script {
@@ -280,7 +280,7 @@ pipeline {
         // Scale POD in production
         stage('scale pod in production to 2 replicas') {
             when{
-                branch 'master'
+               branch 'origin/master'
             }
             steps {
                 script {
@@ -296,7 +296,7 @@ pipeline {
         // Verify deployment
         stage('verify deployment in production') {
             when{
-                branch 'master'
+               branch 'origin/master'
             }
             steps {
                 script {
