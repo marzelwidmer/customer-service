@@ -81,17 +81,6 @@ pipeline {
                 }
             }
         }
-        // Approval to tag the source
-        stage('approve to tagging') {
-            steps {
-                script{
-                    echo "next tag will be: ${NEXT_VERSION}"
-                }
-                timeout(time: 2, unit: 'DAYS') {
-                    input 'Approve to tagging'
-                }
-            }
-        }
         // Create Tag
         stage('git create tag') {
             steps {
