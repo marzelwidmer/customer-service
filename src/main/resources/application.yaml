@@ -7,3 +7,17 @@ management:
     web:
       exposure:
         include: '*'
+
+opentracing:
+  jaeger:
+    log-spans: true
+    http-sender:
+      url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces
+
+---
+spring:
+  profiles: local
+opentracing:
+  jaeger:
+    http-sender:
+      url: http://localhost:14268/api/traces
