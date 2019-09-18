@@ -43,18 +43,9 @@ docker stop jaeger
 docker start jaeger 
 ```
 
-
 ## Hit the Service
 ``` 
 for
  x in (seq 20); http ":8080/api/v1/scientists/random"; end
+```
 
-
-
-
-oc project production \
-oc create dc catalog-service --image=docker-registry.default.svc:5000/development/catalog-service:promotePRD \
-oc patch dc/catalog-service  -p \
-     '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}' \
-oc expose dc catalog-service --port=8080 \
-oc expose svc/catalog-service
