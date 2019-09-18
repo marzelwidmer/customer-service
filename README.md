@@ -45,7 +45,6 @@ docker start jaeger
 
 ## Hit the Service
 ``` 
-for
- x in (seq 20); http ":8080/api/v1/scientists/random"; end
+for x in (seq 20); http ":8080/api/v1/scientists/random"; end
 ```
 
