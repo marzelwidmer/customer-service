@@ -126,7 +126,7 @@ Delete `ConfigMap`
 $ oc delete configmap customer-service
 ```
 
-# Wat running POD
+# Watch running POD
 ```bash
 $ watch oc get pods --field-selector=status.phase=Running                                                                         28.6m  Thu Sep 19 16:14:40 2019
 ```
