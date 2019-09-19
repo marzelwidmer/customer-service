@@ -27,7 +27,6 @@ import java.util.*
 import java.util.stream.Collectors
 import javax.annotation.PostConstruct
 
-
 @SpringBootApplication
 class CustomerServiceApplication
 
@@ -35,12 +34,11 @@ fun main(args: Array<String>) {
     runApplication<CustomerServiceApplication>(*args)
 }
 
-
 @Component
 class TracerConfiguration {
 
     @Bean
-    fun jaegerTracer() = io.jaegertracing.Configuration("customer-service")
+    fun jaegerTracer(): io.jaegertracing.Configuration = io.jaegertracing.Configuration("customer-service")
             .withSampler(io.jaegertracing.Configuration.SamplerConfiguration
                     .fromEnv()
                     .withType(ConstSampler.TYPE)
@@ -49,7 +47,6 @@ class TracerConfiguration {
                     .fromEnv()
                     .withLogSpans(true))
 }
-
 
 @RestController
 @RequestMapping("/api/v1/scientists")
@@ -65,18 +62,17 @@ class ScientistsNameResource(private val scientistsNameService: ScientistsNameSe
 @Service
 class ScientistsNameService(var scientists: List<String> = listOf()) {
 
-    @PostConstruct
-    private fun init() {
-        val inputStream = ClassPathResource("/scientists.txt").inputStream
-        BufferedReader(InputStreamReader(inputStream)).use { reader ->
-            scientists = reader.lines().collect(Collectors.toList<String>())
-        }
-    }
-
     fun getRandomNames() = scientists[kotlin.random.Random.nextInt(scientists.size)]
 
 }
 
+@PostConstruct
+private fun ScientistsNameService.init() {
+    val inputStream = ClassPathResource("/scientists.txt").inputStream
+    BufferedReader(InputStreamReader(inputStream)).use { reader ->
+        scientists = reader.lines().collect(Collectors.toList<String>())
+    }
+}
 
 @Configuration
 @EnableSwagger2
@@ -105,5 +101,4 @@ class SwaggerConfig(var build: Optional<BuildProperties>, var git: Optional<GitP
                 .useDefaultResponseMessages(false)
                 .forCodeGeneration(true)
     }
-
 }
