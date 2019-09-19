@@ -11,10 +11,6 @@ docker run --name customer-service -p 8080:8080 -d marzelwidmer/customer-service
 ``` 
 http :8080/api/v1/scientists/random
 ```
-# API - Dev
-``` 
-http :8082/api/v1/scientists/random
-```
 
 # Jager
 
