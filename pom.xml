@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.8.RELEASE</version>
+		<version>2.2.0.M6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ch.keepcalm.demo</groupId>
@@ -23,7 +23,8 @@
 		<swagger.version>2.9.2</swagger.version>
 		<fabric8.maven.plugin.version>4.2.0</fabric8.maven.plugin.version>
 		<gitlog.version>1.13.17</gitlog.version>
-		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+		<spring-cloud.version>Hoxton.M2</spring-cloud.version>
+		<spring-plugin-core.version>1.2.0.RELEASE</spring-plugin-core.version>
 	</properties>
 
 	<dependencies>
@@ -64,6 +65,12 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>${swagger.version}</version>
 		</dependency>
+		<!-- https://github.com/springfox/springfox/issues/2932#issuecomment-483433171  -->
+		<dependency>
+			<groupId>org.springframework.plugin</groupId>
+			<artifactId>spring-plugin-core</artifactId>
+			<version>${spring-plugin-core.version}</version>
+		</dependency>
 
 		<!-- Jaeger -->
 		<dependency>
@@ -91,7 +98,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>
@@ -99,6 +113,7 @@
 		</dependency>
 	</dependencies>
 
+	<!-- Dependency Management	-->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -150,7 +165,7 @@
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
-			<!-- Gitlog -->
+			<!-- GitLog -->
 			<plugin>
 				<groupId>com.github.danielflower.mavenplugins</groupId>
 				<artifactId>gitlog-maven-plugin</artifactId>
@@ -201,4 +216,19 @@
 		</plugins>
 	</build>
 
+	<!-- Repositories -->
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>
