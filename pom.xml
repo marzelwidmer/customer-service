@@ -79,10 +79,15 @@
 			<version>${jaeger.version}</version>
 		</dependency>
 
-		<!-- Kubernetes -->
+		<!-- Kubernetes Config -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-kubernetes-config</artifactId>
+		</dependency>
+		<!-- Kubernetes Ribbon / Kubernetes Discovery Client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-kubernetes-ribbon</artifactId>
 		</dependency>
 
 		<!-- DevTools -->
