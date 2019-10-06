@@ -21,3 +21,8 @@ opentracing:
     log-spans: true
     http-sender:
       url: http://localhost:14268/api/traces
+
+ribbon:
+  http:
+    client:
+      enabled: true
