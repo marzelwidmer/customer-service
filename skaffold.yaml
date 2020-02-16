@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+metadata:
+  name: customer-service
+build:
+  artifacts:
+    - image: customer-service
+      jib: {}
+  local:
+    push: false
+
+deploy:
+  kubectl:
+    manifests:
+      - k8s/base/deployment.yaml
+      - k8s/base/service.yaml
