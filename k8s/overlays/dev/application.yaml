@@ -2,4 +2,4 @@ opentracing:
   jaeger:
     log-spans: true
     http-sender:
-      url: http://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces
+      url: https://jaeger-collector-jaeger.apps.c3smonkey.ch/api/traces
