@@ -1,0 +1,24 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: customer-service
+    env: dev
+    stage: dev
+  name: customer-service
+  namespace: dev
+spec:
+  host: customer-service-dev.apps.c3smonkey.ch
+  port:
+    targetPort: 8080-8080
+  to:
+    kind: Service
+    name: customer-service
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+    - conditions:
+      host: customer-service-dev.apps.c3smonkey.ch
+      routerName: router
+      wildcardPolicy: None

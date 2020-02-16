@@ -1,3 +1,62 @@
+
+# Skaffold Run Pipeline on OKD
+## Login Internal Docker Registry
+```bash
+docker login -u developer -p `oc whoami -t` registry.apps.c3smonkey.ch
+
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+Login Succeeded
+```
+
+# Kustomize 
+```bash
+kustomize build k8s/overlays/dev > k8s-deployment.yaml
+```
+
+## Run Skaffold Pipeline
+```bash
+skaffold run -p monkey
+
+Generating tags...
+ - registry.apps.c3smonkey.ch/dev/customer-service -> registry.apps.c3smonkey.ch/dev/customer-service:latest
+Checking cache...
+ - registry.apps.c3smonkey.ch/dev/customer-service: Found. Pushing
+The push refers to repository [registry.apps.c3smonkey.ch/dev/customer-service]
+f730a95aa030: Pushed
+2a474dc063a9: Pushed
+567cd6e70f55: Pushed
+3ed672ad8207: Pushed
+6189abe095d5: Pushed
+f47163e8de57: Pushed
+0d1435bd79e4: Pushed
+latest: digest: sha256:24e73fe1263cd9222cb4b3d9c17cd4e8fe47f4b710d1478bd8ab50d16dc5cee2 size: 1788
+Tags used in deployment:
+ - registry.apps.c3smonkey.ch/dev/customer-service -> registry.apps.c3smonkey.ch/dev/customer-service:latest@sha256:24e73fe1263cd9222cb4b3d9c17cd4e8fe47f4b710d1478bd8ab50d16dc5cee2
+Starting deploy...
+ - configmap/customer-service-configmap-th4dkd9k8h configured
+ - service/customer-service configured
+ - deployment.apps/customer-service configured
+You can also run [skaffold run --tail] to get the logs
+```
+
+See also : 
+
+https://registry-console-default.apps.c3smonkey.ch/registry#/images/dev/customer-service 
+http://customer-service-dev.apps.c3smonkey.ch/swagger-ui.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Docker Build
 
 ```

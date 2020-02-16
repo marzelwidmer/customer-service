@@ -16,4 +16,5 @@ images:
 
 resources:
 - ../../base/
+- route.yaml
 
