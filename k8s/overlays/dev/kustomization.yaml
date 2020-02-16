@@ -18,3 +18,8 @@ resources:
 - ../../base/
 - route.yaml
 
+configMapGenerator:
+  - name: customer-service-configmap
+    behavior: merge
+    files:
+      - application.yaml

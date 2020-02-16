@@ -28,3 +28,9 @@ spec:
             httpGet:
               port: 8080
               path: /actuator/health
+          env:
+            - name: "APPLICATION_CONFIGURATION"
+              valueFrom:
+                configMapKeyRef:
+                  name: customer-service-configmap
+                  key: application.yaml

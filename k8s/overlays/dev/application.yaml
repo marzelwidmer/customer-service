@@ -1,0 +1,6 @@
+opentracing:
+  jaeger:
+    log-spans: true
+    http-sender:
+      url: https://jaeger-collector-dev.apps.c3smonkey.ch/api/traces
+
