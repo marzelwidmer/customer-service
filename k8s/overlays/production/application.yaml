@@ -1,0 +1,5 @@
+opentracing:
+  jaeger:
+    log-spans: true
+    http-sender:
+      url: http://monitoring.apps.c3smonkey.ch/api/traces
