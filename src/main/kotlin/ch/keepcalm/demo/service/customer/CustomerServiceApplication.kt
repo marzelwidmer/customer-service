@@ -1,10 +1,10 @@
 package ch.keepcalm.demo.service.customer
 
+import ch.sbb.esta.openshift.gracefullshutdown.GracefulshutdownSpringApplication
 import io.jaegertracing.internal.samplers.ConstSampler
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.info.BuildProperties
 import org.springframework.boot.info.GitProperties
-import org.springframework.boot.runApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -33,7 +33,7 @@ import javax.annotation.PostConstruct
 class CustomerServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<CustomerServiceApplication>(*args)
+    GracefulshutdownSpringApplication.run(CustomerServiceApplication::class.java, *args)
 }
 
 @Component
