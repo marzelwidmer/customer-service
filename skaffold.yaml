@@ -3,6 +3,8 @@ kind: Config
 metadata:
   name: customer-service
 build:
+  tagPolicy:
+    sha256: {}
   artifacts:
     - image: customer-service
       jib: {}

@@ -36,6 +36,12 @@ fun main(args: Array<String>) {
     GracefulshutdownSpringApplication.run(CustomerServiceApplication::class.java, *args)
 }
 
+@RestController
+class LivenessProbe  {
+    @GetMapping(value = ["/alive"])
+    fun alive() = "ok"
+}
+
 @Component
 class TracerConfiguration {
 
