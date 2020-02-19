@@ -10,7 +10,7 @@ Login Succeeded
 
 # Kustomize 
 ```bash
-kustomize build k8s/overlays/dev > k8s-deployment.yaml
+kustomize build k8s/overlays/dev > deployment.yaml
 ```
 
 ## Run Skaffold Pipeline
