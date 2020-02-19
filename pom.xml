@@ -26,6 +26,7 @@
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<graceful-shutdown.version>2.0.1</graceful-shutdown.version>
 		<jib.maven-plugin-version>1.8.0</jib.maven-plugin-version>
+		<jib.from.image>gcr.io/distroless/java</jib.from.image>
 
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<graceful-shutdown.version>2.0.1</graceful-shutdown.version>
@@ -202,7 +203,7 @@
 				<version>${jib.maven-plugin-version}</version>
 				<configuration>
 					<from>
-						<image>gcr.io/distroless/java</image>
+						<image>${jib.from.image}</image>
 					</from>
 					<allowInsecureRegistries>true</allowInsecureRegistries>
 					<container>
