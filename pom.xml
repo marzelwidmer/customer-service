@@ -30,6 +30,7 @@
 
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<graceful-shutdown.version>2.0.1</graceful-shutdown.version>
+		<latencyUtils.version>2.0.3</latencyUtils.version>  <!--  Needed After Spring Boot Starter upgrade to Version 2.2.4.RELEASE-->
 	</properties>
 
 
@@ -53,6 +54,13 @@
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib-jdk8</artifactId>
+		</dependency>
+		<!-- Needed After Spring Boot Starter upgrade to Version 2.2.4.RELEASE  -->
+		<!--       http :8080/actuator/gateway/routes -->
+		<dependency>
+			<groupId>org.latencyutils</groupId>
+			<artifactId>LatencyUtils</artifactId>
+			<version>${latencyUtils.version}</version>
 		</dependency>
 		<!-- SpringBoot Graceful Shutdown  -->
 		<dependency>
