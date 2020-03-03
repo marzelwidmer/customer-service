@@ -22,11 +22,9 @@ profiles:
         - image: registry.apps.c3smonkey.ch/dev/customer-service
           jib:
             args: ['-Dimage=registry.apps.c3smonkey.ch/dev/customer-service']
-
     deploy:
-      kubectl:
-        manifests:
-          - deployment.yaml
+      kustomize:
+        paths: ["k8s/overlays/dev"]
 
   - name: local
     build:
@@ -37,21 +35,3 @@ profiles:
           jib: {}
       local:
         push: false
-
-  - name: osp
-    activation:
-      - kubeContext: myhelsana-dev-az/osp-preprod-hel-kko-ch:443
-    build:
-      insecureRegistries:
-        - registry.osp-appl-preprod.hel.kko.ch
-      tagPolicy:
-        sha256: {}
-      artifacts:
-        - image: registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-az/customer-service
-          jib:
-            args: ['-Djib.from.image=registry.osp-appl-preprod.hel.kko.ch/myhelsana-build-dz/openjdk18-openshift:latest', '-Dimage=registry.osp-appl-preprod.hel.kko.ch/myhelsana-dev-az/customer-service']
-
-    deploy:
-      kubectl:
-        manifests:
-          - deployment-osp.yaml
