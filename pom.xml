@@ -20,7 +20,7 @@
 		<jib.version>1.5.1</jib.version>
 		<docker-registery>marzelwidmer</docker-registery>
 		<jaeger.version>2.0.3</jaeger.version>
-		<swagger.version>2.9.2</swagger.version>
+		<swagger.version>2.10.0</swagger.version>
 		<fabric8.maven.plugin.version>4.2.0</fabric8.maven.plugin.version>
 		<gitlog.version>1.13.17</gitlog.version>
 		<spring-cloud.version>Hoxton.RC1</spring-cloud.version>
